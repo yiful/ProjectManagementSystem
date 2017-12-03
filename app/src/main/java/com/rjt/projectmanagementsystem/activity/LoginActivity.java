@@ -64,7 +64,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Start the Signup activity
-                Intent intent = new Intent(getApplicationContext(), com.rjt.projectmanagementsystem.Activity.SignupActivity.class);
+                Intent intent = new Intent(getApplicationContext(), com.rjt.projectmanagementsystem.activity.SignupActivity.class);
                 startActivityForResult(intent, REQUEST_SIGNUP);
             }
         });

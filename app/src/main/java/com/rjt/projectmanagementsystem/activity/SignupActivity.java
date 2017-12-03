@@ -1,4 +1,4 @@
-package com.rjt.projectmanagementsystem.Activity;
+package com.rjt.projectmanagementsystem.activity;
 
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
