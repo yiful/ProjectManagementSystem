@@ -19,7 +19,6 @@ import com.malinkang.rxvalidator.annotations.NotEmpty;
 import com.malinkang.rxvalidator.annotations.RegExp;
 import com.rjt.projectmanagementsystem.R;
 import com.rjt.projectmanagementsystem.network.ApiClient;
-import com.rjt.projectmanagementsystem.network.ApiService;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -1,4 +1,4 @@
-package com.rjt.projectmanagementsystem.activity;
+package com.rjt.projectmanagementsystem.Activity;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -18,6 +18,21 @@ import com.rjt.projectmanagementsystem.R;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    /**
+     *  ****************************** this is for demo how to call the Util API ************
+     * button.setOnClickListener(new View.OnClickListener() {
+     *      @Override
+     *      public void onClick(View v) {
+     *          util.login("sdjfl@gmail.com", "sdjflsdkf", new Util.UserInfoCallback() {
+     *              @Override
+     *                  public void onResponse(UserInfo info) {
+     *                      Log.d("user", util.getUserInfo().toString());
+     *                  }
+     *          });
+     *      }
+     * });
+     * **************************************** demo *******************************************
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
