@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/PMS_team.iml" filepath="$PROJECT_DIR$/.idea/PMS_team.iml" />
       <module fileurl="file://$PROJECT_DIR$/ProjectManagementSystem.iml" filepath="$PROJECT_DIR$/ProjectManagementSystem.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
