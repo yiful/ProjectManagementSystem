@@ -1,9 +1,8 @@
-package com.rjt.projectmanagementsystem.Activity;
+package com.rjt.projectmanagementsystem.activity;
 
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,7 +17,6 @@ import com.malinkang.rxvalidator.annotations.MinLength;
 import com.malinkang.rxvalidator.annotations.NotEmpty;
 import com.malinkang.rxvalidator.annotations.RegExp;
 import com.rjt.projectmanagementsystem.R;
-import com.rjt.projectmanagementsystem.network.ApiClient;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,9 +24,6 @@ import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import rx.Subscription;
 import rx.functions.Action1;
 
@@ -147,36 +142,6 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
 
     private void signup() {
 
-        Log.d(TAG, "Signup");
-        //    _signupButton.setEnabled(false);
-
-        String first_name = _nameText.getText().toString();
-        String last_name=_lastnameText.getText().toString();
-        String email = _emailText.getText().toString();
-        String mobile = _mobileText.getText().toString();
-        String password = _passwordText.getText().toString();
-        String companySize = _companySize.getText().toString();
-        String companyRole = _companyRole.getText().toString();
-
-        ApiService apiService= ApiClient.getClient().create(ApiService.class);
-        retrofit2.Call<String> registerResponseCall=apiService.getRegisterResponse(first_name,last_name,email,
-                        mobile,password,companySize,companyRole);
-
-        registerResponseCall.enqueue(new Callback<String>() {
-            @Override
-            public void onResponse(Call<String> call, Response<String> response) {
-                Toast.makeText(SignupActivity.this, response.body(), Toast.LENGTH_SHORT).show();
-                Log.i(TAG, "get response success, "+response.body());
-                finish();
-            }
-
-            @Override
-            public void onFailure(Call<String> call, Throwable t) {
-                Log.i(TAG, "failure");
-                Log.i(TAG, t.toString());
-                onSignupFailed();
-            }
-        });
     }
 
     private void onSignupFailed() {
