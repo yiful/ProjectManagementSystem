@@ -24,57 +24,57 @@ public class Event {
 	@SerializedName("eventsprojectname")
 	private String eventsprojectname;
 
-	@SerializedName("id")
-	private String id;
+    @SerializedName("id")
+    private String id;
 
-	@SerializedName("eventsteammanager")
-	private String eventsteammanager;
+    @SerializedName("eventsteammanager")
+    private String eventsteammanager;
 
-	@SerializedName("eventsprojectmanager")
-	private String eventsprojectmanager;
+    @SerializedName("eventsprojectmanager")
+    private String eventsprojectmanager;
 
 	@SerializedName("eventsstatus")
 	private String eventsstatus;
 
-	public void setConclusion(String conclusion){
-		this.conclusion = conclusion;
-	}
+    public void setConclusion(String conclusion){
+        this.conclusion = conclusion;
+    }
 
-	public String getConclusion(){
-		return conclusion;
-	}
+    public String getConclusion(){
+        return conclusion;
+    }
 
-	public void setEventsattendedmembersnames(String eventsattendedmembersnames){
-		this.eventsattendedmembersnames = eventsattendedmembersnames;
-	}
+    public void setEventsattendedmembersnames(String eventsattendedmembersnames){
+        this.eventsattendedmembersnames = eventsattendedmembersnames;
+    }
 
-	public String getEventsattendedmembersnames(){
-		return eventsattendedmembersnames;
-	}
+    public String getEventsattendedmembersnames(){
+        return eventsattendedmembersnames;
+    }
 
-	public void setEventsname(String eventsname){
-		this.eventsname = eventsname;
-	}
+    public void setEventsname(String eventsname){
+        this.eventsname = eventsname;
+    }
 
-	public String getEventsname(){
-		return eventsname;
-	}
+    public String getEventsname(){
+        return eventsname;
+    }
 
-	public void setEventsprojectname(String eventsprojectname){
-		this.eventsprojectname = eventsprojectname;
-	}
+    public void setEventsprojectname(String eventsprojectname){
+        this.eventsprojectname = eventsprojectname;
+    }
 
-	public String getEventsprojectname(){
-		return eventsprojectname;
-	}
+    public String getEventsprojectname(){
+        return eventsprojectname;
+    }
 
-	public void setId(String id){
-		this.id = id;
-	}
+    public void setId(String id){
+        this.id = id;
+    }
 
-	public String getId(){
-		return id;
-	}
+    public String getId(){
+        return id;
+    }
 
 	public void setEventsteammanager(String eventsteammanager){
 		this.eventsteammanager = eventsteammanager;
