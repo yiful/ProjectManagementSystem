@@ -18,8 +18,7 @@ import com.malinkang.rxvalidator.annotations.MinLength;
 import com.malinkang.rxvalidator.annotations.NotEmpty;
 import com.malinkang.rxvalidator.annotations.RegExp;
 import com.rjt.projectmanagementsystem.R;
-import com.rjt.projectmanagementsystem.network.ApiClient;
-import com.rjt.projectmanagementsystem.network.ApiService;
+import com.rjt.projectmanagementsystem.network.Util;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,9 +26,6 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import rx.Subscription;
 import rx.functions.Action1;
 
@@ -94,6 +90,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
 
     Map<EditText, TextInputLayout> inputLayoutMap = new HashMap<>();
 
+    Util util;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,6 +109,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
 
         _signupButton.setOnClickListener(this);
 
+        util = new Util();
     }
 
     Subscription subscription;
@@ -159,25 +157,17 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         String companySize = _companySize.getText().toString();
         String companyRole = _companyRole.getText().toString();
 
-        ApiService apiService= ApiClient.getClient().create(ApiService.class);
-        retrofit2.Call<String> registerResponseCall=apiService.getRegisterResponse(first_name,last_name,email,
-                        mobile,password,companySize,companyRole);
 
-        registerResponseCall.enqueue(new Callback<String>() {
+        util.register(first_name, last_name, email, mobile, password, companySize, companyRole, new Util.RegisterCallback() {
             @Override
-            public void onResponse(Call<String> call, Response<String> response) {
-                Toast.makeText(SignupActivity.this, response.body(), Toast.LENGTH_SHORT).show();
-                Log.i(TAG, "get response success, "+response.body());
+            public void onResponse(String  response) {
+
+                Toast.makeText(SignupActivity.this,response.toString() , Toast.LENGTH_SHORT).show();
+                Log.i(TAG, "get response success, "+response.toString());
                 finish();
             }
-
-            @Override
-            public void onFailure(Call<String> call, Throwable t) {
-                Log.i(TAG, "failure");
-                Log.i(TAG, t.toString());
-                onSignupFailed();
-            }
         });
+
     }
 
     private void onSignupFailed() {

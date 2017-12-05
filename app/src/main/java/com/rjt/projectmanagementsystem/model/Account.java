@@ -1,15 +1,15 @@
 package com.rjt.projectmanagementsystem.model;
 
-/**
- * Created by Jinming on 12/2/17.
- */
-
 import com.google.gson.annotations.SerializedName;
 
-public class Account{
-	public static final String MESSAGE = "msg";
-	public static final String USER_EMAIL = "useremail";
-	public static final String USER_PASSWORD = "userpassword";
+/**
+ * Created by rashmi on 12/4/2017.
+ */
+
+public class Account {
+    public static final String MESSAGE = "msg";
+    public static final String USER_EMAIL = "useremail";
+    public static final String USER_PASSWORD = "userpassword";
 
     @SerializedName("msg")
     private String msg;

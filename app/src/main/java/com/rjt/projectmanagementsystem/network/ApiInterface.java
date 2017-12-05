@@ -1,10 +1,5 @@
 package com.rjt.projectmanagementsystem.network;
 
-/**
- * Created by Jinming on 12/2/17.
- */
-
-
 import com.rjt.projectmanagementsystem.model.Account;
 import com.rjt.projectmanagementsystem.model.Events;
 import com.rjt.projectmanagementsystem.model.Projects;
@@ -16,7 +11,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 /**
- * Created by Jinming on 12/1/17.
+ * Created by rashmi on 12/4/2017.
  */
 
 public interface ApiInterface {
@@ -31,6 +26,7 @@ public interface ApiInterface {
      * @param your_role
      * @return successfully registered if succeed otherwise Email already exists
      */
+
     @GET("pms_reg.php")
     Call<String> register(@Query("first_name") String first_name,
                           @Query("last_name") String last_name,
@@ -53,7 +49,6 @@ public interface ApiInterface {
      *
      * @param email
      * @return Account object otherwise {"msg":["Email is not register"]}
-
      */
     @GET("pms_forgot_pass.php")
     Call<Account> forgetPassword(@Query("email") String email);
@@ -123,6 +118,5 @@ public interface ApiInterface {
      */
     @GET("pms_update_project_status.php")
     Call<String> updateProject(@Query("project_id") String project_id, @Query("project_status") String project_status);
+
 }
-
-

@@ -12,16 +12,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rjt.projectmanagementsystem.R;
-import com.rjt.projectmanagementsystem.model.ForgotPwdResponse;
-import com.rjt.projectmanagementsystem.model.User;
-import com.rjt.projectmanagementsystem.network.ApiClient;
-import com.rjt.projectmanagementsystem.network.ApiService;
+import com.rjt.projectmanagementsystem.model.Account;
+import com.rjt.projectmanagementsystem.model.UserInfo;
+import com.rjt.projectmanagementsystem.network.Util;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -37,7 +33,8 @@ public class LoginActivity extends AppCompatActivity {
     TextView _signupLink;
     @BindView(R.id.link_forgot)
     TextView tvForgot;
-    
+
+    Util mUtil;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +42,7 @@ public class LoginActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
+        mUtil=new Util();
         _loginButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -73,33 +71,37 @@ public class LoginActivity extends AppCompatActivity {
     private void forgotPwd() {
         String email = _emailText.getText().toString();
 
-        ApiService apiService=ApiClient.getClient().create(ApiService.class);
-        Call<ForgotPwdResponse> forgotPwdResponseCall =apiService.getForgotPwdResponse(email);
-        forgotPwdResponseCall.enqueue(new Callback<ForgotPwdResponse>() {
+        mUtil.forgetPassword(email, new Util.ForgetPasswordCallback() {
             @Override
-            public void onResponse(Call<ForgotPwdResponse> call, Response<ForgotPwdResponse> response) {
-                Log.i(TAG,"Password is "+response.body().getUserpassword().toString());
-            }
-
-            @Override
-            public void onFailure(Call<ForgotPwdResponse> call, Throwable t) {
+            public void onResponse(Account account) {
+                Log.i(TAG,"Password is "+account.getUserpassword().toString());
+                Toast.makeText(LoginActivity.this,account.getUserpassword().toString() , Toast.LENGTH_SHORT).show();
 
             }
         });
+
     }
 
     private void login() {
-
         if (!validate()) { //check if it's valid
             onLoginFailed();
             return;
         }
-
         String email = _emailText.getText().toString();
         String password = _passwordText.getText().toString();
 
-        // Api Call using Retrofit
-        ApiService APIService = ApiClient.getClient().create(ApiService.class);
+        mUtil.login(email, password, new Util.LoginCallback() {
+            @Override
+            public void onResponse(UserInfo info) {
+                Log.i(TAG,info.toString());
+                //Toast.makeText(LoginActivity.this,info.toString() , Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent(LoginActivity.this,MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+       /* ApiService APIService = ApiClient.getClient().create(ApiService.class);
         Call<User> loginResponseCall = APIService.getLoginResponse(email, password);
 
         loginResponseCall.enqueue(new Callback<User>() {
@@ -113,7 +115,7 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(LoginActivity.this, "Login failed", Toast.LENGTH_SHORT).show();
                 Log.i(TAG, t.toString());
             }
-        });
+        });*/
     }
 
     private void onLoginFailed() {
