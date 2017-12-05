@@ -18,12 +18,13 @@ import com.rjt.projectmanagementsystem.network.Util;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 public class LoginActivity extends AppCompatActivity {
 
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
-
+    Unbinder unbinder;
     @BindView(R.id.input_email)
     TextInputEditText _emailText;
     @BindView(R.id.input_password) TextInputEditText _passwordText;
@@ -40,7 +41,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        ButterKnife.bind(this);
+        unbinder=ButterKnife.bind(this);
 
         mUtil=new Util();
         _loginButton.setOnClickListener(new View.OnClickListener() {
@@ -146,5 +147,10 @@ public class LoginActivity extends AppCompatActivity {
         return valid;
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unbinder.unbind();
+    }
 }
 
