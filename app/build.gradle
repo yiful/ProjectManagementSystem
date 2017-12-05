@@ -41,4 +41,7 @@ dependencies {
     compile 'com.jakewharton.rxbinding:rxbinding:0.4.0'
     compile 'com.malinkang:rxvalidator:0.1'
     annotationProcessor 'com.malinkang:rxvalidator-compiler:0.1'
+    compile 'com.google.android.gms:play-services:8.4.0'
+    compile files('libs/dropbox-android-sdk.jar')
+    compile files('libs/json_simple-1.1.jar')
 }
