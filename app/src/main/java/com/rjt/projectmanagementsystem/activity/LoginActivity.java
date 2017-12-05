@@ -17,7 +17,7 @@ import com.rjt.projectmanagementsystem.model.User;
 import com.rjt.projectmanagementsystem.network.ApiClient;
 import com.rjt.projectmanagementsystem.network.ApiService;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -28,14 +28,14 @@ public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
 
-    @Bind(R.id.input_email)
+    @BindView(R.id.input_email)
     TextInputEditText _emailText;
-    @Bind(R.id.input_password) TextInputEditText _passwordText;
-    @Bind(R.id.btn_login)
+    @BindView(R.id.input_password) TextInputEditText _passwordText;
+    @BindView(R.id.btn_login)
     Button _loginButton;
-    @Bind(R.id.link_signup)
+    @BindView(R.id.link_signup)
     TextView _signupLink;
-    @Bind(R.id.link_forgot)
+    @BindView(R.id.link_forgot)
     TextView tvForgot;
     
     @Override

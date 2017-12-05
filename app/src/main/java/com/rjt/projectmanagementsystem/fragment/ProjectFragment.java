@@ -18,8 +18,8 @@ import android.widget.Toast;
 
 import com.rjt.projectmanagementsystem.R;
 import com.rjt.projectmanagementsystem.model.Projects;
-import com.rjt.projectmanagementsystem.network.APIClient;
-import com.rjt.projectmanagementsystem.network.APIService;
+import com.rjt.projectmanagementsystem.network.ApiClient;
+import com.rjt.projectmanagementsystem.network.ApiService;
 import com.rjt.projectmanagementsystem.utility.ProjectAdapter;
 
 import java.util.List;
@@ -52,7 +52,7 @@ public class ProjectFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        APIService apiService = APIClient.getClient().create(APIService.class);
+        ApiService apiService = ApiClient.getClient().create(ApiService.class);
         Call<Projects> call = apiService.getProjectList();
         call.enqueue(new Callback<Projects>() {
             @Override
