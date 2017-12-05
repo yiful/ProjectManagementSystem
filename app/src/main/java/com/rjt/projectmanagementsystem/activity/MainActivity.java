@@ -3,6 +3,7 @@ package com.rjt.projectmanagementsystem.activity;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,10 +15,26 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.rjt.projectmanagementsystem.R;
+import com.rjt.projectmanagementsystem.events.EventsFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    /**
+     *  ****************************** this is for demo how to call the Util API ************
+     * button.setOnClickListener(new View.OnClickListener() {
+     *      @Override
+     *      public void onClick(View v) {
+     *          util.login("sdjfl@gmail.com", "sdjflsdkf", new Util.UserInfoCallback() {
+     *              @Override
+     *                  public void onResponse(UserInfo info) {
+     *                      Log.d("user", util.getUserInfo().toString());
+     *                  }
+     *          });
+     *      }
+     * });
+     * **************************************** demo *******************************************
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +51,10 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.fragmentLayout, new EventsFragment())
+                .commit();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);

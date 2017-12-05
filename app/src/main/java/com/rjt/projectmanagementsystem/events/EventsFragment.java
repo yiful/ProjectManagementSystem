@@ -17,6 +17,7 @@ import com.rjt.projectmanagementsystem.R;
 import com.rjt.projectmanagementsystem.model.Events;
 import com.rjt.projectmanagementsystem.util.Util;
 
+
 /**
  * A simple {@link Fragment} subclass.
  */
