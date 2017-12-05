@@ -1,15 +1,11 @@
-package com.rjt.projectmanagementsystem.fragment;
+package com.rjt.projectmanagementsystem.project;
 
 
-import android.app.Activity;
 import android.app.Fragment;
-import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,9 +14,8 @@ import android.widget.Toast;
 
 import com.rjt.projectmanagementsystem.R;
 import com.rjt.projectmanagementsystem.model.Projects;
-import com.rjt.projectmanagementsystem.network.ApiClient;
-import com.rjt.projectmanagementsystem.network.ApiInterface;
-import com.rjt.projectmanagementsystem.utility.ProjectAdapter;
+import com.rjt.projectmanagementsystem.util.ApiClient;
+import com.rjt.projectmanagementsystem.util.ApiInterface;
 
 import java.util.List;
 
@@ -52,7 +47,7 @@ public class ProjectFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
+        ApiInterface apiService = ApiClient.getRetrofit().create(ApiInterface.class);
         Call<Projects> call = apiService.getProjects();
         call.enqueue(new Callback<Projects>() {
             @Override

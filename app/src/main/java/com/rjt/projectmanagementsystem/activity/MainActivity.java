@@ -15,7 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.rjt.projectmanagementsystem.R;
-import com.rjt.projectmanagementsystem.fragment.ProjectFragment;
+import com.rjt.projectmanagementsystem.project.ProjectFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {

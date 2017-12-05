@@ -1,4 +1,4 @@
-package com.rjt.projectmanagementsystem.utility;
+package com.rjt.projectmanagementsystem.project;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

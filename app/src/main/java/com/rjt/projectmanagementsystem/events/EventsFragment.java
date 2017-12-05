@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 
 import com.rjt.projectmanagementsystem.R;
 import com.rjt.projectmanagementsystem.model.Events;
-import com.rjt.projectmanagementsystem.network.Util;
+import com.rjt.projectmanagementsystem.util.Util;
 
 /**
  * A simple {@link Fragment} subclass.

@@ -10,6 +10,7 @@ import com.rjt.projectmanagementsystem.model.TeamMembersItem;
 import com.rjt.projectmanagementsystem.model.UserInfo;
 
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -26,7 +27,7 @@ public class Util {
     private Events events;
     private static ApiInterface apiInterface;
 
-    public interface UserInfoCallback {
+    public interface LoginCallback {
         void onResponse(UserInfo info);
     }
 
@@ -121,14 +122,14 @@ public class Util {
      * @param password
      */
     public void login(final String email, final String password,
-                      final UserInfoCallback userInfoCallback) {
+                      final LoginCallback loginCallback) {
         Call<UserInfo> loginCall = apiInterface.login(email, password);
         loginCall.enqueue(new Callback<UserInfo>() {
             @Override
             public void onResponse(Call<UserInfo> call, Response<UserInfo> response) {
                 Log.i("Login", "Success");
                 userInfo = response.body();
-                userInfoCallback.onResponse(userInfo);
+                loginCallback.onResponse(userInfo);
             }
 
             @Override
@@ -246,22 +247,11 @@ public class Util {
 
     /**
      *
-     * @param project_name
-     * @param project_status
-     * @param assign_to
-     * @param project_desc
-     * @param start_date
-     * @param end_data
+     * @param map
      * @param createProjectCallback
      */
-    public void createProject(String project_name,
-                              String project_status,
-                              String assign_to,
-                              String project_desc,
-                              String start_date,
-                              String end_data, final CreateProjectCallback createProjectCallback) {
-        Call<String> createProjectsCall = apiInterface.createProject(project_name,
-                project_status, assign_to, project_desc, start_date, end_data);
+    public void createProject(Map<String, String> map, final CreateProjectCallback createProjectCallback) {
+        Call<String> createProjectsCall = apiInterface.createProject(map);
         createProjectsCall.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {

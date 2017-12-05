@@ -18,7 +18,7 @@ import com.malinkang.rxvalidator.annotations.MinLength;
 import com.malinkang.rxvalidator.annotations.NotEmpty;
 import com.malinkang.rxvalidator.annotations.RegExp;
 import com.rjt.projectmanagementsystem.R;
-import com.rjt.projectmanagementsystem.network.Util;
+import com.rjt.projectmanagementsystem.util.Util;
 
 import java.util.ArrayList;
 import java.util.HashMap;

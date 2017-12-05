@@ -7,9 +7,12 @@ import com.rjt.projectmanagementsystem.model.Projects;
 import com.rjt.projectmanagementsystem.model.TeamMembers;
 import com.rjt.projectmanagementsystem.model.UserInfo;
 
+import java.util.Map;
+
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
+import retrofit2.http.QueryMap;
 
 /**
  * Created by Jinming on 12/1/17.
@@ -96,12 +99,13 @@ public interface ApiInterface {
      * @return
      */
     @GET("pms_create_project.php")
-    Call<String> createProject(@Query("project_name") String project_name,
+    Call<String> createProject(@QueryMap Map<String, String> map);
+    /*(@Query("project_name") String project_name,
                                @Query("project_status") String project_status,
                                @Query("assigned_to") String assign_to,
                                @Query("project_desc") String project_desc,
                                @Query("start_date") String start_date,
-                               @Query("end_date") String end_date);
+                               @Query("end_date") String end_date);*/
 
 
     /**

@@ -1,4 +1,4 @@
-package com.rjt.projectmanagementsystem.fragment;
+package com.rjt.projectmanagementsystem.project;
 
 
 import android.app.Fragment;
@@ -12,8 +12,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.rjt.projectmanagementsystem.R;
-import com.rjt.projectmanagementsystem.network.ApiClient;
-import com.rjt.projectmanagementsystem.network.ApiInterface;
+import com.rjt.projectmanagementsystem.util.ApiClient;
+import com.rjt.projectmanagementsystem.util.ApiInterface;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -81,7 +81,7 @@ public class NewProjectFragment extends Fragment {
         map.put("project_desc", etDes.getText().toString());
         map.put("start_date", dpStart.getText().toString());
         map.put("end_date", dpEnd.getText().toString());
-        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
+        ApiInterface apiService = ApiClient.getRetrofit().create(ApiInterface.class);
             Call<String> call = apiService.createProject(map);
         call.enqueue(new Callback<String>() {
             @Override
