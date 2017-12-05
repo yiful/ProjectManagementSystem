@@ -26,7 +26,7 @@ public class Util {
     private Events events;
     private static ApiInterface apiInterface;
 
-    public interface UserInfoCallback {
+    public interface LoginCallback {
         void onResponse(UserInfo info);
     }
 
@@ -121,14 +121,14 @@ public class Util {
      * @param password
      */
     public void login(final String email, final String password,
-                      final UserInfoCallback userInfoCallback) {
+                      final LoginCallback loginCallback) {
         Call<UserInfo> loginCall = apiInterface.login(email, password);
         loginCall.enqueue(new Callback<UserInfo>() {
             @Override
             public void onResponse(Call<UserInfo> call, Response<UserInfo> response) {
                 Log.i("Login", "Success");
                 userInfo = response.body();
-                userInfoCallback.onResponse(userInfo);
+                loginCallback.onResponse(userInfo);
             }
 
             @Override

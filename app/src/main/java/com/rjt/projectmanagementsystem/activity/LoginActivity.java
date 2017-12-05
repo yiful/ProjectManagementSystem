@@ -14,7 +14,7 @@ import android.widget.Toast;
 import com.rjt.projectmanagementsystem.R;
 import com.rjt.projectmanagementsystem.model.Account;
 import com.rjt.projectmanagementsystem.model.UserInfo;
-import com.rjt.projectmanagementsystem.network.Util;
+import com.rjt.projectmanagementsystem.util.Util;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
