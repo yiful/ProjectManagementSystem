@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+
 android {
     compileSdkVersion 26
     defaultConfig {
@@ -33,4 +34,8 @@ dependencies {
     compile 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     implementation 'com.android.support:cardview-v7:27.0.1'
+
+    compile 'com.jakewharton.rxbinding:rxbinding:0.4.0'
+    compile 'com.malinkang:rxvalidator:0.1'
+    annotationProcessor 'com.malinkang:rxvalidator-compiler:0.1'
 }
