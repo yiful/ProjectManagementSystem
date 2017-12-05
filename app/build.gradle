@@ -43,6 +43,7 @@ dependencies {
     compile 'com.malinkang:rxvalidator:0.1'
     annotationProcessor 'com.malinkang:rxvalidator-compiler:0.1'
 
-    compile 'com.dropbox.core:dropbox-core-sdk:2.0.1'
+    compile files('libs/dropbox-android-sdk.jar')
+    compile files('libs/json_simple-1.1.jar')
     compile 'com.squareup.picasso:picasso:2.5.2'
 }

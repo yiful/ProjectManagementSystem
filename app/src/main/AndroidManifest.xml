@@ -3,7 +3,6 @@
     package="com.rjt.projectmanagementsystem">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <!-- To auto-complete the email text field in the login form with the user's emails -->
@@ -18,23 +17,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <meta-data
-        android:name="com.google.android.geo.API_KEY"
-        android:value="AIzaSyBUoc0sT1j_EvEm2Ink1s8N3K9veribRiU"/>
-
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBUoc0sT1j_EvEm2Ink1s8N3K9veribRiU" />
         <meta-data
             android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version"/>
+            android:value="@integer/google_play_services_version" />
 
         <activity
-            android:name="com.dropbox.core.android.AuthActivity"
+            android:name="com.dropbox.client2.android.AuthActivity"
             android:configChanges="orientation|keyboard"
-            android:launchMode="singleTask">
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar">
             <intent-filter>
 
                 <!-- Insert your app key after “db-  ...” -->
-                <data android:scheme="fxvygnld36zmnpj" />
+                <data android:scheme="db-fxvygnld36zmnpj" />
 
                 <action android:name="android.intent.action.VIEW" />
 
@@ -46,7 +45,7 @@
         <activity
             android:name=".activity.MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -54,7 +53,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.SignupActivity"></activity>
+        <activity android:name=".activity.SignupActivity" />
+        <activity
+            android:name=".activity.AttachementActivity"
+            android:label="@string/title_activity_attachement"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activity.DropboxDownload"></activity>
     </application>
 
 </manifest>
