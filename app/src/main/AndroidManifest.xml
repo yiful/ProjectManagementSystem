@@ -54,11 +54,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.SignupActivity" />
-        <activity
+        <!--<activity
             android:name=".activity.AttachementActivity"
-            android:label="@string/title_activity_attachement"
+            android:label="title_activity_attachement"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activity.DropboxDownload"></activity>
+        <activity android:name=".activity.DropboxDownload"></activity>-->
     </application>
 
 </manifest>

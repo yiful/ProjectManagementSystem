@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import com.rjt.projectmanagementsystem.R;
 import com.rjt.projectmanagementsystem.network.ApiClient;
-import com.rjt.projectmanagementsystem.network.ApiService;
+import com.rjt.projectmanagementsystem.network.ApiInterface;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -81,8 +81,8 @@ public class NewProjectFragment extends Fragment {
         map.put("project_desc", etDes.getText().toString());
         map.put("start_date", dpStart.getText().toString());
         map.put("end_date", dpEnd.getText().toString());
-        ApiService apiService = ApiClient.getClient().create(ApiService.class);
-        Call<String> call = apiService.createNewProject(map);
+        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
+            Call<String> call = apiService.createProject(map);
         call.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
