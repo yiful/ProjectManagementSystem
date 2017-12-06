@@ -1,4 +1,4 @@
-package com.rjt.projectmanagementsystem.network;
+package com.rjt.projectmanagementsystem.util;
 
 import com.rjt.projectmanagementsystem.model.Account;
 import com.rjt.projectmanagementsystem.model.Events;

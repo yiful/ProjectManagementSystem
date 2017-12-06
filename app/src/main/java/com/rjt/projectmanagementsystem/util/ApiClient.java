@@ -1,4 +1,4 @@
-package com.rjt.projectmanagementsystem.network;
+package com.rjt.projectmanagementsystem.util;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

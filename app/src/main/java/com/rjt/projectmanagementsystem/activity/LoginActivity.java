@@ -14,7 +14,7 @@ import android.widget.Toast;
 import com.rjt.projectmanagementsystem.R;
 import com.rjt.projectmanagementsystem.model.Account;
 import com.rjt.projectmanagementsystem.model.UserInfo;
-import com.rjt.projectmanagementsystem.network.Util;
+import com.rjt.projectmanagementsystem.util.Util;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -100,24 +100,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-
-       /* ApiService APIService = ApiClient.getClient().create(ApiService.class);
-        Call<User> loginResponseCall = APIService.getLoginResponse(email, password);
-
-        loginResponseCall.enqueue(new Callback<User>() {
-            @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-                Log.i(TAG,response.body().toString());
-                Intent intent=new Intent(LoginActivity.this,MainActivity.class);
-                startActivity(intent);
-            }
-
-            @Override
-            public void onFailure(Call<User> call, Throwable t) {
-                Toast.makeText(LoginActivity.this, "Login failed", Toast.LENGTH_SHORT).show();
-                Log.i(TAG, t.toString());
-            }
-        });*/
     }
 
     private void onLoginFailed() {
