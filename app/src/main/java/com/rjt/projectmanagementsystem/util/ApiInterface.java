@@ -88,16 +88,7 @@ public interface ApiInterface {
     @GET("pms_project_team_list.php")
     Call<TeamMembers> getTeamList();
 
-    /**
-     *
-     * @param project_name
-     * @param project_status
-     * @param assign_to
-     * @param project_desc
-     * @param start_date
-     * @param end_date
-     * @return
-     */
+
     @GET("pms_create_project.php")
     Call<String> createProject(@QueryMap Map<String, String> map);
     /*(@Query("project_name") String project_name,

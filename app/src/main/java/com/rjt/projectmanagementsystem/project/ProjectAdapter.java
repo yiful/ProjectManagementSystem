@@ -1,11 +1,18 @@
 package com.rjt.projectmanagementsystem.project;
 
+import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.rjt.projectmanagementsystem.R;
 import com.rjt.projectmanagementsystem.model.Projects;
@@ -36,13 +43,36 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         holder.tvName.setText(list.get(position).getProjectname());
         holder.tvDes.setText(list.get(position).getProjectdesc());
-        holder.tvStatus.setText(list.get(position).getProjectstatus());
         holder.tvStart.setText(list.get(position).getStartdate());
+        String btnText = list.get(position).getProjectstatus();
+        switch (btnText){
+            case "New":
+                holder.cardView.setBackgroundColor(context.getResources().getColor(R.color.colorNew));
+                break;
+            case "completed":
+                holder.cardView.setBackgroundColor(context.getResources().getColor(R.color.colorCompleted));
+                break;
+            case "started":
+                holder.cardView.setBackgroundColor(context.getResources().getColor(R.color.colorStarted));
+                break;
+        }
+        holder.btnStatus.setText(btnText);
         holder.tvEnd.setText(list.get(position).getEndstart());
         holder.tvAssign.setText(list.get(position).getAssignto());
+        holder.btnStatus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(context, "button clicked", Toast.LENGTH_SHORT).show();
+                UpdateStatusFragment fragment = UpdateStatusFragment.newInstance(position);
+                Activity activity = (Activity) context;
+                FragmentManager ft = activity.getFragmentManager();
+                fragment.setTargetFragment(ft.findFragmentByTag("ProjectFragment"),1);
+                fragment.show(ft,"showDialog");
+            }
+        });
     }
 
     @Override
@@ -55,14 +85,16 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ViewHold
         TextView tvName;
         @BindView(R.id.tvDes)
         TextView tvDes;
-        @BindView(R.id.tvStatus)
-        TextView tvStatus;
+        @BindView(R.id.btnStatus)
+        Button btnStatus;
         @BindView(R.id.tvAssign)
         TextView tvAssign;
         @BindView(R.id.tvStart)
         TextView tvStart;
         @BindView(R.id.tvEnd)
         TextView tvEnd;
+        @BindView(R.id.cardView)
+        CardView cardView;
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);

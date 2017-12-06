@@ -3,9 +3,11 @@ package com.rjt.projectmanagementsystem.project;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,6 +49,11 @@ public class ProjectFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        loadDataFromApi();
+
+    }
+
+    private void loadDataFromApi() {
         ApiInterface apiService = ApiClient.getRetrofit().create(ApiInterface.class);
         Call<Projects> call = apiService.getProjects();
         call.enqueue(new Callback<Projects>() {
@@ -77,6 +84,23 @@ public class ProjectFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==1){
+            if(requestCode==1){
+                Log.i("fragment","success");
+                //loadDataFromApi();
+                int position = data.getIntExtra("position",0);
+                String status = data.getStringExtra("status");
+                Log.i("fragment", "position is "+position);
+                Log.i("fragment", "status is "+status);
+                list.get(position).setProjectstatus(status);
+                adapter.notifyDataSetChanged();
+            }
+        }
     }
 
     @Override

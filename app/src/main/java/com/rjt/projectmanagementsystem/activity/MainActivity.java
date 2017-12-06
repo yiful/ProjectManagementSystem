@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity
             // Handle the camera action
             ProjectFragment  fragment = new ProjectFragment();
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
-            transaction.replace(R.id.fragmentContainer, fragment)
+            transaction.replace(R.id.fragmentContainer, fragment, "ProjectFragment")
                     .commit();
         } else if (id == R.id.nav_gallery) {
 
