@@ -45,11 +45,14 @@ import com.rjt.projectmanagementsystem.utility.UploadFile;
 import com.rjt.projectmanagementsystem.utility.Utility;
 import com.rjt.projectmanagementsystem.utility.Utils;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 public class AttachementActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
@@ -58,7 +61,7 @@ public class AttachementActivity extends AppCompatActivity implements GoogleApiC
 
     private boolean fabExpanded = false;
     private LinearLayout layoutFabFile, layoutFabCamera, layoutFabdropBox,layoutFabDrive;
-    FloatingActionButton fabSettings,fabDrive,fabDropBox,fabCamera;
+    FloatingActionButton fabSettings,fabDrive,fabDropBox,fabCamera,fabFile;
 
     GoogleApiClient mGoogleApiClient;
     private DriveId mFileId;
@@ -67,6 +70,7 @@ public class AttachementActivity extends AppCompatActivity implements GoogleApiC
     private static final  int REQUEST_CODE_OPENER = 2;
     private static final int TAKE_PHOTO = 3;
 
+    static final int READ_REQ = 24;
 
     private DropboxAPI<AndroidAuthSession> mApi;
     private File f;
@@ -101,15 +105,18 @@ public class AttachementActivity extends AppCompatActivity implements GoogleApiC
         layoutFabdropBox = (LinearLayout) this.findViewById(R.id.layoutFabDropBox);
         layoutFabDrive = (LinearLayout) this.findViewById(R.id.layoutFabDrive);
 
+
         fabSettings = (FloatingActionButton) this.findViewById(R.id.fab);
         fabDrive=(FloatingActionButton)this.findViewById(R.id.fabDrive);
         fabDropBox=(FloatingActionButton)this.findViewById(R.id.fabDropBox);
         fabCamera=(FloatingActionButton)this.findViewById(R.id.fabPhoto);
+        fabFile=(FloatingActionButton)this.findViewById(R.id.fabFile);
 
         fabSettings.setOnClickListener(this);
         fabDrive.setOnClickListener(this);
         fabDropBox.setOnClickListener(this);
         fabCamera.setOnClickListener(this);
+        fabFile.setOnClickListener(this);
         closeSubMenusFab();
 
         // DROPBox Integration
@@ -243,9 +250,48 @@ public class AttachementActivity extends AppCompatActivity implements GoogleApiC
         else if(v==fabCamera){
             selectImage();
         }
+        else if(v==fabFile){
+            readFile(v);
+        }
 
     }
 
+    /**
+     * Method to retrieve the uri of the file to be read from different document providers
+     * using Storage access framework
+     * @param view
+     */
+    public void readFile(View view) {
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.setType("text/*");
+
+        startActivityForResult(intent, READ_REQ);
+    }
+
+    /**
+     * Method to read file from different document providers using Storage access framework
+     * based on the uri of the selected file from the list of files available
+     * @param uri
+     */
+    private void readTextFile(Uri uri) {
+        InputStream inputStream = null;
+        try {
+            inputStream = getContentResolver().openInputStream(uri);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(
+                    inputStream));
+
+            String line;
+            Log.i("","open text file - content"+"\n");
+            while ((line = reader.readLine()) != null) {
+                Log.i("",line+"\n");
+            }
+            reader.close();
+            inputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -352,6 +398,14 @@ public class AttachementActivity extends AppCompatActivity implements GoogleApiC
             case SELECT_FILE:
                 if (resultCode == RESULT_OK)
                     onSelectFromGalleryResult(data);
+                break;
+
+            case READ_REQ:
+                Uri uri = null;
+                if (data != null) {
+                    uri = data.getData();
+                }
+                readTextFile(uri);
                 break;
             default:
                 super.onActivityResult(requestCode, resultCode, data);
@@ -490,6 +544,7 @@ public class AttachementActivity extends AppCompatActivity implements GoogleApiC
      * To add event handling when Fab button Open is clicked
      */
     private void openSubMenusFab() {
+
         layoutFabFile.setVisibility(View.VISIBLE);
         layoutFabCamera.setVisibility(View.VISIBLE);
         layoutFabdropBox.setVisibility(View.VISIBLE);
