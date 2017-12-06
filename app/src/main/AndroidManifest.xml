@@ -34,7 +34,6 @@
 
                 <!-- Insert your app key after “db-  ...” -->
                 <data android:scheme="db-fxvygnld36zmnpj" />
-
                 <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.BROWSABLE" />
