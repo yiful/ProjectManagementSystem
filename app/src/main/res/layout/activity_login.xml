@@ -76,6 +76,11 @@
                 android:gravity="center"
                 android:textSize="16dip"/>
 
+            <com.google.android.gms.common.SignInButton
+                android:id="@+id/btnGoogle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"></com.google.android.gms.common.SignInButton>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

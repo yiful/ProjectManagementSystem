@@ -13,4 +13,5 @@
     <string name="take_a_photo">Take a photo</string>
     <string name="attach_google_drive">Attach from Google Drive</string>
     <string name="attach_dropbox">Attach from DropBox</string>
+    <string name="title_activity_note">NoteActivity</string>
 </resources>

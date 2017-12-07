@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "276877783836",
+    "project_id": "firebase-project-management-sy"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:276877783836:android:e11a2966866e5e9c",
+        "android_client_info": {
+          "package_name": "com.rjt.projectmanagementsystem"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "276877783836-il84tfpr3aul4q8f558mj8gfeh3jv7l0.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "276877783836-8jnfrbgdncsjqtemckaki3h09s2t8ssq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rjt.projectmanagementsystem",
+            "certificate_hash": "1d9da5d868014daba1a4310627603ba4c88748cf"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyADEhmX8Y-w5I9tHXDov94XxnXkZU784vU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
