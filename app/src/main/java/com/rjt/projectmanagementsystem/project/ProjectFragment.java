@@ -111,7 +111,7 @@ public class ProjectFragment extends Fragment {
 
     @OnClick(R.id.btnCreate)
     public void onViewClicked() {
-        Toast.makeText(getActivity(), "button clicked", Toast.LENGTH_SHORT).show();
+       // Toast.makeText(getActivity(), "button clicked", Toast.LENGTH_SHORT).show();
         NewProjectFragment fragment = new NewProjectFragment();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.add(R.id.fragmentContainer, fragment)
