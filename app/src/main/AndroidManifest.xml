@@ -19,7 +19,7 @@
         android:theme="@style/AppTheme">
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyBUoc0sT1j_EvEm2Ink1s8N3K9veribRiU" />
+            android:value="AIzaSyD8rxCkgIgkm-1WkKPptqWM6GsCMmmS1pA" />
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />

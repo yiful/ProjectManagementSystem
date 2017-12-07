@@ -87,7 +87,7 @@ public class LoginActivity extends AppCompatActivity {
             onLoginFailed();
             return;
         }
-        String email = _emailText.getText().toString();
+        final String email = _emailText.getText().toString();
         String password = _passwordText.getText().toString();
 
         mUtil.login(email, password, new Util.LoginCallback() {
