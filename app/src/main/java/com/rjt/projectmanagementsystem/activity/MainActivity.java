@@ -4,20 +4,26 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
+import android.util.Log;
+import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ShareActionProvider;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -40,6 +46,7 @@ public class MainActivity extends BaseActivity
     private static final String TAG = "MainActivity";
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
+    private ShareActionProvider mShareActionProvider;
     private String userName;
     private String userEmail;
     private String userPhoto;
@@ -91,16 +98,7 @@ public class MainActivity extends BaseActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        /*FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            Intent intent = new Intent(MainActivity.this, NoteActivity.class);
-            startActivity(intent);
-                *//*Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();*//*
-            }
-        });*/
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -108,9 +106,18 @@ public class MainActivity extends BaseActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         View headerview = navigationView.getHeaderView(0);
+        //share menu item
+        /*Menu menuNav = navigationView.getMenu();
+        MenuItem shareItem = menuNav.findItem(R.id.nav_share);
+        mShareActionProvider = (ShareActionProvider) shareItem.getActionProvider();
+        Intent intentShare = new Intent(Intent.ACTION_SEND);
+        intentShare.setType("text/html");
+        intentShare.putExtra(Intent.EXTRA_TEXT, "share");
+        setShareIntent(intentShare);*/
+
         tvUserEmail = headerview.findViewById(R.id.userEmail);
         tvUserName = headerview.findViewById(R.id.userName);
         ivUser = headerview.findViewById(R.id.userImg);
@@ -199,11 +206,18 @@ public class MainActivity extends BaseActivity
             transaction.replace(R.id.fragmentContainer, fragment, "ContactsFragment")
                     .commit();
         } else if (id == R.id.nav_manage) {
+            //Conversation
+            startActivity(new Intent(MainActivity.this, SignInActivity.class));
+            menuRed.close(true);
 
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
-
+            Intent intentShare = new Intent(Intent.ACTION_SEND);
+            intentShare.setType("text/html");
+            intentShare.putExtra(Intent.EXTRA_TEXT, "Hi there, \n \n I just found a new app for managing projects and tasks! \n \nDownload it here: www.yiful.com");
+            intentShare.putExtra(Intent.EXTRA_SUBJECT, "Found a cool App!");
+            startActivity(intentShare);
         }else if(id == R.id.logout){
             signout();
         }
@@ -269,6 +283,7 @@ public class MainActivity extends BaseActivity
         // Go to MainActivity
         //    startActivity(new Intent(SignInActivity.this, MainActivity.class));
     }
+
     private void writeNewUser(String userId, String name, String email) {
         User user = new User(name, email);
 
@@ -298,5 +313,11 @@ public class MainActivity extends BaseActivity
         }
         finish();
         Toast.makeText(this, "You have logged out!", Toast.LENGTH_SHORT).show();
+    }
+
+    private void setShareIntent(Intent shareIntent) {
+        if (mShareActionProvider != null) {
+            mShareActionProvider.setShareIntent(shareIntent);
+        }
     }
 }

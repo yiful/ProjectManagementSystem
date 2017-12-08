@@ -19,6 +19,8 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:gravity="center_vertical"
+        android:textColor="#000"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
         tools:text="someauthor@email.com" />
 
 </LinearLayout>
