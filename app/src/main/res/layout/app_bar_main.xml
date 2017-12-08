@@ -40,9 +40,9 @@
             android:id="@+id/fab1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_cloud_download_black_24dp"
+            android:src="@drawable/ic_public_black_24dp"
             fab:fab_size="mini"
-            fab:fab_label="Open from google drive" />
+            fab:fab_label="Write a post" />
 
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/fab2"

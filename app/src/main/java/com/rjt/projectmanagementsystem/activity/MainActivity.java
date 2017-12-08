@@ -24,15 +24,26 @@ import com.github.clans.fab.FloatingActionMenu;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.rjt.projectmanagementsystem.R;
 import com.rjt.projectmanagementsystem.events.ContactsFragment;
 import com.rjt.projectmanagementsystem.events.EventsFragment;
+import com.rjt.projectmanagementsystem.model.firebase_model.User;
+import com.rjt.projectmanagementsystem.posts.activity.BaseActivity;
+import com.rjt.projectmanagementsystem.posts.activity.SignInActivity;
 import com.rjt.projectmanagementsystem.project.NewProjectFragment;
 import com.rjt.projectmanagementsystem.project.ProjectFragment;
 import com.squareup.picasso.Picasso;
 
-public class MainActivity extends AppCompatActivity
+public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    private static final String TAG = "MainActivity";
+    private FirebaseAuth mAuth;
+    private DatabaseReference mDatabase;
     private String userName;
     private String userEmail;
     private String userPhoto;
@@ -47,6 +58,9 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mAuth = FirebaseAuth.getInstance();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
         menuRed = findViewById(R.id.menu_red);
         menuRed.setClosedOnTouchOutside(true);
         fab1 = findViewById(R.id.fab1);
@@ -68,6 +82,13 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, CameraActivity.class);
                 startActivity(intent);
+                menuRed.close(true);
+            }
+        });
+        fab1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, SignInActivity.class));
                 menuRed.close(true);
             }
         });
@@ -110,6 +131,8 @@ public class MainActivity extends AppCompatActivity
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.fragmentContainer, fragment, "ProjectFragment")
                 .commit();
+
+        tryRegisterFirebaseAccountRegistered();
     }
 
     @Override
@@ -189,18 +212,90 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    private void tryRegisterFirebaseAccountRegistered(){
+        showProgressDialog();
+        mAuth.createUserWithEmailAndPassword(userEmail, userEmail)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        Log.d(TAG, "createUser:onComplete:" + task.isSuccessful());
+                        // hideProgressDialog();
+
+                        if (task.isSuccessful()) {
+                            //register firebase user.
+                            onAuthSuccess(task.getResult().getUser());
+                            Log.i(TAG, "Firebase is now registered!");
+                 //           Toast.makeText(LoginActivity.this, "Firebase account created", Toast.LENGTH_SHORT).show();
+                            hideProgressDialog();
+                        } else {
+                            Log.i(TAG, "Firebase is registered before!");
+                            //        mAuth.signInWithEmailAndPassword(userEmail, userEmail);
+                            signInFirebaseAccount();
+                        }
+                    }
+                });
+        //    return false;
+    }
+
+    private void signInFirebaseAccount() {
+        mAuth.signInWithEmailAndPassword(userEmail, userEmail)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        Log.d(TAG, "signIn:onComplete:" + task.isSuccessful());
+                        //   hideProgressDialog();
+                        hideProgressDialog();
+                        if (task.isSuccessful()) {
+                            onAuthSuccess(task.getResult().getUser());
+                            //  Toast.makeText(LoginActivity.this, "Firebase account signed in", Toast.LENGTH_SHORT).show();
+                            Log.i(TAG,"Firebase account signed in!");
+                            Toast.makeText(MainActivity.this, "Firebase account signed in", Toast.LENGTH_SHORT).show();
+
+                        } else {
+                            Log.i(TAG, "Firebase account failed to sign in");
+                            // hideProgressDialog();
+                        }
+                    }
+                });
+    }
+
+    private void onAuthSuccess(FirebaseUser user) {
+        String username = usernameFromEmail(user.getEmail());
+
+        // Write new user
+        writeNewUser(user.getUid(), username, user.getEmail());
+
+        // Go to MainActivity
+        //    startActivity(new Intent(SignInActivity.this, MainActivity.class));
+    }
+    private void writeNewUser(String userId, String name, String email) {
+        User user = new User(name, email);
+
+        mDatabase.child("users").child(userId).setValue(user);
+    }
+
+    private String usernameFromEmail(String email) {
+        if (email.contains("@")) {
+            return email.split("@")[0];
+        } else {
+            return email;
+        }
+    }
+
     private void signout() {
         if(LoginActivity.mGoogleSignInClient!=null) {
             LoginActivity.mGoogleSignInClient.signOut()
                     .addOnCompleteListener(this, new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
-                            finish();
+
                         }
                     });
-        }else{
-            finish();
         }
+        if( FirebaseAuth.getInstance()!=null){
+            FirebaseAuth.getInstance().signOut();
+        }
+        finish();
         Toast.makeText(this, "You have logged out!", Toast.LENGTH_SHORT).show();
     }
 }

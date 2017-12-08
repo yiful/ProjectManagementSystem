@@ -2,11 +2,13 @@ package com.rjt.projectmanagementsystem.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,21 +19,33 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.rjt.projectmanagementsystem.R;
 import com.rjt.projectmanagementsystem.model.Account;
 import com.rjt.projectmanagementsystem.model.UserInfo;
+import com.rjt.projectmanagementsystem.model.firebase_model.User;
+import com.rjt.projectmanagementsystem.posts.activity.BaseActivity;
+import com.rjt.projectmanagementsystem.posts.activity.SignInActivity;
 import com.rjt.projectmanagementsystem.util.Util;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends BaseActivity {
 
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
     public static GoogleSignInClient mGoogleSignInClient;
+    private FirebaseAuth mAuth;
+    private DatabaseReference mDatabase;
+    private String userEmail;
     Unbinder unbinder;
     @BindView(R.id.input_email)
     TextInputEditText _emailText;
@@ -50,6 +64,8 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        mAuth = FirebaseAuth.getInstance();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
         //google sign in
         GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail().build();
@@ -147,16 +163,17 @@ public class LoginActivity extends AppCompatActivity {
             onLoginFailed();
             return;
         }
-        final String email = _emailText.getText().toString();
+        userEmail = _emailText.getText().toString();
         String password = _passwordText.getText().toString();
 
-        mUtil.login(email, password, new Util.LoginCallback() {
+        mUtil.login(userEmail, password, new Util.LoginCallback() {
             @Override
             public void onResponse(UserInfo info) {
+       //         tryRegisterFirebaseAccountRegistered();
                 Log.i(TAG,info.toString());
                 //Toast.makeText(LoginActivity.this,info.toString() , Toast.LENGTH_SHORT).show();
                 Intent intent=new Intent(LoginActivity.this,MainActivity.class);
-                intent.putExtra("userEmail",email);
+                intent.putExtra("userEmail",userEmail);
                 startActivity(intent);
             }
         });
@@ -205,6 +222,76 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         return valid;
+    }
+
+    private void tryRegisterFirebaseAccountRegistered(){
+        showProgressDialog();
+        mAuth.createUserWithEmailAndPassword(userEmail, userEmail)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        Log.d(TAG, "createUser:onComplete:" + task.isSuccessful());
+                       // hideProgressDialog();
+
+                        if (task.isSuccessful()) {
+                            //register firebase user.
+                            onAuthSuccess(task.getResult().getUser());
+                            Toast.makeText(LoginActivity.this, "Firebase account created", Toast.LENGTH_SHORT).show();
+                            hideProgressDialog();
+                        } else {
+                            Log.i(TAG, "Firebase is registered before!");
+                    //        mAuth.signInWithEmailAndPassword(userEmail, userEmail);
+                            signInFirebaseAccount();
+                        }
+                    }
+                });
+    //    return false;
+    }
+
+    private void signInFirebaseAccount() {
+        mAuth.signInWithEmailAndPassword(userEmail, userEmail)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        Log.d(TAG, "signIn:onComplete:" + task.isSuccessful());
+                     //   hideProgressDialog();
+
+                        if (task.isSuccessful()) {
+                            onAuthSuccess(task.getResult().getUser());
+                          //  Toast.makeText(LoginActivity.this, "Firebase account signed in", Toast.LENGTH_SHORT).show();
+                            Log.i(TAG,"Firebase account signed in!");
+
+                        } else {
+                            Log.i(TAG, "Firebase account failed to sign in");
+                           // hideProgressDialog();
+                        }
+                    }
+                });
+        hideProgressDialog();
+    }
+
+    private void onAuthSuccess(FirebaseUser user) {
+        String username = usernameFromEmail(user.getEmail());
+
+        // Write new user
+        writeNewUser(user.getUid(), username, user.getEmail());
+
+        // Go to MainActivity
+    //    startActivity(new Intent(SignInActivity.this, MainActivity.class));
+    }
+
+    private String usernameFromEmail(String email) {
+        if (email.contains("@")) {
+            return email.split("@")[0];
+        } else {
+            return email;
+        }
+    }
+
+    private void writeNewUser(String userId, String name, String email) {
+        User user = new User(name, email);
+
+        mDatabase.child("users").child(userId).setValue(user);
     }
 
     @Override

@@ -65,7 +65,7 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ViewHold
         holder.btnStatus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, "button clicked", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context, "button clicked", Toast.LENGTH_SHORT).show();
                 UpdateStatusFragment fragment = UpdateStatusFragment.newInstance(position);
                 Activity activity = (Activity) context;
                 FragmentManager ft = activity.getFragmentManager();
