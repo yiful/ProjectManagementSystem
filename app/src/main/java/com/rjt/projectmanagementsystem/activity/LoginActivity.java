@@ -11,37 +11,58 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.Task;
 import com.rjt.projectmanagementsystem.R;
 import com.rjt.projectmanagementsystem.model.Account;
 import com.rjt.projectmanagementsystem.model.UserInfo;
 import com.rjt.projectmanagementsystem.util.Util;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 public class LoginActivity extends AppCompatActivity {
 
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
-
-    @Bind(R.id.input_email)
+    public static GoogleSignInClient mGoogleSignInClient;
+    Unbinder unbinder;
+    @BindView(R.id.input_email)
     TextInputEditText _emailText;
-    @Bind(R.id.input_password) TextInputEditText _passwordText;
-    @Bind(R.id.btn_login)
+    @BindView(R.id.input_password) TextInputEditText _passwordText;
+    @BindView(R.id.btn_login)
     Button _loginButton;
-    @Bind(R.id.link_signup)
+    @BindView(R.id.link_signup)
     TextView _signupLink;
-    @Bind(R.id.link_forgot)
+    @BindView(R.id.link_forgot)
     TextView tvForgot;
+    @BindView(R.id.btnGoogle)
+    SignInButton btnGoogle;
 
     Util mUtil;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-        ButterKnife.bind(this);
-
+        //google sign in
+        GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail().build();
+        mGoogleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions);
+        unbinder=ButterKnife.bind(this);
+        btnGoogle.setSize(SignInButton.SIZE_STANDARD);
+        btnGoogle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+                startActivityForResult(signInIntent, 101);
+            }
+        });
         mUtil=new Util();
         _loginButton.setOnClickListener(new View.OnClickListener() {
 
@@ -66,6 +87,45 @@ public class LoginActivity extends AppCompatActivity {
                 startActivityForResult(intent, REQUEST_SIGNUP);
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        // Check for existing Google Sign In account, if the user is already signed in
+// the GoogleSignInAccount will be non-null.
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+        if(account!=null) {
+            Toast.makeText(this, "google account logged in", Toast.LENGTH_SHORT).show();
+            Log.i("onStart","username " + account.getDisplayName());
+            Log.i("onStart", "photo "+account.getPhotoUrl());
+        }
+      //  updateUI(account);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 101){
+         //   Toast.makeText(this, "login success", Toast.LENGTH_SHORT).show();
+            googleLoginToMain(data);
+
+        }
+    }
+
+    private void googleLoginToMain(Intent data) {
+        Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+        try {
+            GoogleSignInAccount account = task.getResult(ApiException.class);
+            Toast.makeText(this, "Welcome! "+ account.getDisplayName(), Toast.LENGTH_SHORT).show();
+            Intent intent=new Intent(LoginActivity.this,MainActivity.class);
+            intent.putExtra("userName", account.getDisplayName());
+            intent.putExtra("userEmail", account.getEmail());
+            intent.putExtra("userImg", account.getPhotoUrl().toString());
+            startActivity(intent);
+        } catch (ApiException e) {
+            e.printStackTrace();
+        }
     }
 
     private void forgotPwd() {
@@ -96,6 +156,7 @@ public class LoginActivity extends AppCompatActivity {
                 Log.i(TAG,info.toString());
                 //Toast.makeText(LoginActivity.this,info.toString() , Toast.LENGTH_SHORT).show();
                 Intent intent=new Intent(LoginActivity.this,MainActivity.class);
+                intent.putExtra("userEmail",email);
                 startActivity(intent);
             }
         });
@@ -130,5 +191,10 @@ public class LoginActivity extends AppCompatActivity {
         return valid;
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unbinder.unbind();
+    }
 }
 

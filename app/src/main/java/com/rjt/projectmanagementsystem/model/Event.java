@@ -2,13 +2,8 @@ package com.rjt.projectmanagementsystem.model;
 
 import com.google.gson.annotations.SerializedName;
 
-/**
- * Created by rashmi on 12/4/2017.
- */
-
 public class Event {
-
-    public static final String CONCLUSION = "conclusion";
+	public static final String CONCLUSION = "conclusion";
     public static final String MEMBER_NAME = "eventsattendedmembersnames";
     public static final String NAME = "eventsname";
     public static final String PROJECT_NAME = "eventsprojectname";
@@ -17,17 +12,17 @@ public class Event {
     public static final String STATUS = "eventsstatus";
     public static final String ID = "id";
 
-    @SerializedName("conclusion")
-    private String conclusion;
+	@SerializedName("conclusion")
+	private String conclusion;
 
-    @SerializedName("eventsattendedmembersnames")
-    private String eventsattendedmembersnames;
+	@SerializedName("eventsattendedmembersnames")
+	private String eventsattendedmembersnames;
 
-    @SerializedName("eventsname")
-    private String eventsname;
+	@SerializedName("eventsname")
+	private String eventsname;
 
-    @SerializedName("eventsprojectname")
-    private String eventsprojectname;
+	@SerializedName("eventsprojectname")
+	private String eventsprojectname;
 
     @SerializedName("id")
     private String id;
@@ -38,8 +33,8 @@ public class Event {
     @SerializedName("eventsprojectmanager")
     private String eventsprojectmanager;
 
-    @SerializedName("eventsstatus")
-    private String eventsstatus;
+	@SerializedName("eventsstatus")
+	private String eventsstatus;
 
     public void setConclusion(String conclusion){
         this.conclusion = conclusion;
@@ -81,43 +76,42 @@ public class Event {
         return id;
     }
 
-    public void setEventsteammanager(String eventsteammanager){
-        this.eventsteammanager = eventsteammanager;
-    }
+	public void setEventsteammanager(String eventsteammanager){
+		this.eventsteammanager = eventsteammanager;
+	}
 
-    public String getEventsteammanager(){
-        return eventsteammanager;
-    }
+	public String getEventsteammanager(){
+		return eventsteammanager;
+	}
 
-    public void setEventsprojectmanager(String eventsprojectmanager){
-        this.eventsprojectmanager = eventsprojectmanager;
-    }
+	public void setEventsprojectmanager(String eventsprojectmanager){
+		this.eventsprojectmanager = eventsprojectmanager;
+	}
 
-    public String getEventsprojectmanager(){
-        return eventsprojectmanager;
-    }
+	public String getEventsprojectmanager(){
+		return eventsprojectmanager;
+	}
 
-    public void setEventsstatus(String eventsstatus){
-        this.eventsstatus = eventsstatus;
-    }
+	public void setEventsstatus(String eventsstatus){
+		this.eventsstatus = eventsstatus;
+	}
 
-    public String getEventsstatus(){
-        return eventsstatus;
-    }
+	public String getEventsstatus(){
+		return eventsstatus;
+	}
 
-    @Override
-    public String toString(){
-        return
-                "Event{" +
-                        "conclusion = '" + conclusion + '\'' +
-                        ",eventsattendedmembersnames = '" + eventsattendedmembersnames + '\'' +
-                        ",eventsname = '" + eventsname + '\'' +
-                        ",eventsprojectname = '" + eventsprojectname + '\'' +
-                        ",id = '" + id + '\'' +
-                        ",eventsteammanager = '" + eventsteammanager + '\'' +
-                        ",eventsprojectmanager = '" + eventsprojectmanager + '\'' +
-                        ",eventsstatus = '" + eventsstatus + '\'' +
-                        "}";
-    }
+	@Override
+ 	public String toString(){
+		return 
+			"Event{" +
+			"conclusion = '" + conclusion + '\'' + 
+			",eventsattendedmembersnames = '" + eventsattendedmembersnames + '\'' + 
+			",eventsname = '" + eventsname + '\'' + 
+			",eventsprojectname = '" + eventsprojectname + '\'' + 
+			",id = '" + id + '\'' + 
+			",eventsteammanager = '" + eventsteammanager + '\'' + 
+			",eventsprojectmanager = '" + eventsprojectmanager + '\'' + 
+			",eventsstatus = '" + eventsstatus + '\'' + 
+			"}";
+		}
 }
-

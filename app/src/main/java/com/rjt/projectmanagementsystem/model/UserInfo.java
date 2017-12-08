@@ -1,13 +1,12 @@
 package com.rjt.projectmanagementsystem.model;
 
-import com.google.gson.annotations.SerializedName;
-
 /**
- * Created by rashmi on 12/4/2017.
+ * Created by Jinming on 12/2/17.
  */
 
-public class UserInfo {
+import com.google.gson.annotations.SerializedName;
 
+public class UserInfo {
     public static final String MESSAGE = "msg";
     public static final String LAST_NAME = "userlastname";
     public static final String FIRST_NAME = "userfirstname";

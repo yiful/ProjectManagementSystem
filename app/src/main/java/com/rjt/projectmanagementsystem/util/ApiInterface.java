@@ -6,12 +6,15 @@ import com.rjt.projectmanagementsystem.model.Projects;
 import com.rjt.projectmanagementsystem.model.TeamMembers;
 import com.rjt.projectmanagementsystem.model.UserInfo;
 
+import java.util.Map;
+
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
+import retrofit2.http.QueryMap;
 
 /**
- * Created by rashmi on 12/4/2017.
+ * Created by Jinming on 12/1/17.
  */
 
 public interface ApiInterface {
@@ -26,7 +29,6 @@ public interface ApiInterface {
      * @param your_role
      * @return successfully registered if succeed otherwise Email already exists
      */
-
     @GET("pms_reg.php")
     Call<String> register(@Query("first_name") String first_name,
                           @Query("last_name") String last_name,
@@ -49,6 +51,7 @@ public interface ApiInterface {
      *
      * @param email
      * @return Account object otherwise {"msg":["Email is not register"]}
+
      */
     @GET("pms_forgot_pass.php")
     Call<Account> forgetPassword(@Query("email") String email);
@@ -84,23 +87,15 @@ public interface ApiInterface {
     @GET("pms_project_team_list.php")
     Call<TeamMembers> getTeamList();
 
-    /**
-     *
-     * @param project_name
-     * @param project_status
-     * @param assign_to
-     * @param project_desc
-     * @param start_date
-     * @param end_date
-     * @return
-     */
+
     @GET("pms_create_project.php")
-    Call<String> createProject(@Query("project_name") String project_name,
+    Call<String> createProject(@QueryMap Map<String, String> map);
+    /*(@Query("project_name") String project_name,
                                @Query("project_status") String project_status,
                                @Query("assigned_to") String assign_to,
                                @Query("project_desc") String project_desc,
                                @Query("start_date") String start_date,
-                               @Query("end_date") String end_date);
+                               @Query("end_date") String end_date);*/
 
 
     /**
@@ -118,5 +113,4 @@ public interface ApiInterface {
      */
     @GET("pms_update_project_status.php")
     Call<String> updateProject(@Query("project_id") String project_id, @Query("project_status") String project_status);
-
 }

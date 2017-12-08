@@ -1,14 +1,14 @@
 package com.rjt.projectmanagementsystem.model;
 
-import com.google.gson.annotations.SerializedName;
+/**
+ * Created by Jinming on 12/2/17.
+ */
 
 import java.util.List;
 
-/**
- * Created by rashmi on 12/4/2017.
- */
+import com.google.gson.annotations.SerializedName;
 
-public class Events {
+public class Events{
 
     public static final String EVENTS = "Events";
 

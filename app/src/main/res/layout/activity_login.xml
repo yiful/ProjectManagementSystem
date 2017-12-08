@@ -30,7 +30,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Email"
-                    android:inputType="textEmailAddress" />
+                    android:inputType="textEmailAddress"
+                    android:text="yiful@umich.edu" />
             </android.support.design.widget.TextInputLayout>
 
             <!--  Password Label -->
@@ -45,7 +46,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Password"
-                    android:inputType="textPassword" />
+                    android:inputType="textPassword"
+                    android:text="3702044" />
             </android.support.design.widget.TextInputLayout>
 
             <Button
@@ -74,6 +76,11 @@
                 android:gravity="center"
                 android:textSize="16dip"/>
 
+            <com.google.android.gms.common.SignInButton
+                android:id="@+id/btnGoogle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"></com.google.android.gms.common.SignInButton>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
