@@ -203,13 +203,13 @@ public class MainActivity extends BaseActivity
             menuRed.close(true);
 
         } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
             Intent intentShare = new Intent(Intent.ACTION_SEND);
             intentShare.setType("text/html");
             intentShare.putExtra(Intent.EXTRA_TEXT, "Hi there, \n \n I just found a new app for managing projects and tasks! \n \nDownload it here: www.yiful.com");
             intentShare.putExtra(Intent.EXTRA_SUBJECT, "Found a cool App!");
             startActivity(intentShare);
+        } else if (id == R.id.nav_send) {
+
         }else if(id == R.id.logout){
             signout();
         }
