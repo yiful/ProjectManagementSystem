@@ -100,7 +100,7 @@ public class LoginActivity extends AppCompatActivity {
             Log.i("onStart","username " + account.getDisplayName());
             Log.i("onStart", "photo "+account.getPhotoUrl());
         }
-      //  updateUI(account);
+       //updateUI(account);
     }
 
     @Override

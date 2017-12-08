@@ -35,6 +35,7 @@
 
                 <!-- Insert your app key after “db-  ...” -->
                 <data android:scheme="db-fxvygnld36zmnpj" />
+
                 <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.BROWSABLE" />
@@ -57,13 +58,12 @@
             android:name=".activity.AttachementActivity"
             android:label="@string/title_activity_attachement"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activity.DropboxDownload"></activity>
-
+        <activity android:name=".activity.DropboxDownload" />
         <activity
             android:name=".activity.NoteActivity"
             android:label="@string/title_activity_note"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activity.CameraActivity"></activity>
+        <activity android:name=".activity.CameraActivity" />
     </application>
 
 </manifest>

@@ -1,22 +1,16 @@
 package com.rjt.projectmanagementsystem.events;
 
 import android.content.Context;
-import android.icu.text.LocaleDisplayNames;
 import android.support.v7.widget.RecyclerView;
-import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
-
 
 import com.rjt.projectmanagementsystem.R;
 import com.rjt.projectmanagementsystem.model.Event;
 import com.rjt.projectmanagementsystem.model.Events;
-
-import java.util.List;
 
 /**
  * Created by Jinming on 12/2/17.

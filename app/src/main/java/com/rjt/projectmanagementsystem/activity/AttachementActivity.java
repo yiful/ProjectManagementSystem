@@ -15,8 +15,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -87,10 +85,11 @@ public class AttachementActivity extends AppCompatActivity implements GoogleApiC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_attachement);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+       Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+       toolbar.setTitle("Attachments");
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabInAttachments);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -106,7 +105,7 @@ public class AttachementActivity extends AppCompatActivity implements GoogleApiC
         layoutFabDrive = (LinearLayout) this.findViewById(R.id.layoutFabDrive);
 
 
-        fabSettings = (FloatingActionButton) this.findViewById(R.id.fab);
+        fabSettings = (FloatingActionButton) this.findViewById(R.id.fabInAttachments);
         fabDrive=(FloatingActionButton)this.findViewById(R.id.fabDrive);
         fabDropBox=(FloatingActionButton)this.findViewById(R.id.fabDropBox);
         fabCamera=(FloatingActionButton)this.findViewById(R.id.fabPhoto);
@@ -130,6 +129,7 @@ public class AttachementActivity extends AppCompatActivity implements GoogleApiC
         ivImage = (ImageView) findViewById(R.id.ivImage);
 
     }
+
 
 
     /**
@@ -227,9 +227,8 @@ public class AttachementActivity extends AppCompatActivity implements GoogleApiC
     @Override
     public void onClick(View v) {
         if (v == fabSettings) {
-            Snackbar.make(v, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show();
-
+           /* Snackbar.make(v, "Replace with your own action", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();*/
             if (fabExpanded == true){
                 closeSubMenusFab();
             } else {
@@ -495,6 +494,7 @@ public class AttachementActivity extends AppCompatActivity implements GoogleApiC
      */
 
 
+
     @Override
     protected void onStop() {
         super.onStop();
@@ -568,12 +568,7 @@ public class AttachementActivity extends AppCompatActivity implements GoogleApiC
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
             super.onBackPressed();
-        }
     }
 
 }

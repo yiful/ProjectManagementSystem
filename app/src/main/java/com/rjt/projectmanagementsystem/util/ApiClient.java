@@ -13,7 +13,7 @@ public class ApiClient {
     public static final String BASE_URL = "http://rjtmobile.com/aamir/pms/";
     public static Retrofit retrofit;
 
-    public static Retrofit getClient(){
+    public static Retrofit getRetrofit(){
         if(retrofit == null){
             retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
