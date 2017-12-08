@@ -37,7 +37,6 @@
                 android:icon="@drawable/ic_exit_to_app_black"
                 android:title="Logout"/>
 
-
         </menu>
     </item>
 
