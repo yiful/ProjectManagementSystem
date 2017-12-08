@@ -10,6 +10,7 @@
         android:layout_height="fill_parent"
         android:fitsSystemWindows="true">
 
+
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
@@ -18,6 +19,11 @@
             android:paddingLeft="24dp"
             android:paddingRight="24dp">
 
+            <ImageView
+                android:layout_width="70dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_login"/>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"

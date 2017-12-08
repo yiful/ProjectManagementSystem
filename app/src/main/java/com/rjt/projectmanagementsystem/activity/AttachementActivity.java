@@ -130,8 +130,6 @@ public class AttachementActivity extends AppCompatActivity implements GoogleApiC
 
     }
 
-
-
     /**
      * Session for storing the DropBox Credentials
      * @return
